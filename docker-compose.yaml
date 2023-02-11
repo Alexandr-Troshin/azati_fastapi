@@ -62,6 +62,7 @@ networks:
     name: azati_fastapi_network
 
 
+
 #volumes:
 #  orders_book_db:
 #    name: orders_book_db
