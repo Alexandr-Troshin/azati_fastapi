@@ -9,7 +9,7 @@ services:
       HOST: database
       PORT: 5432
     command: >
-      sh -c "alembic upgrade heads && uvicorn main:app --reload"
+      sh -c "alembic upgrade heads && uvicorn src.main:app --reload --host 0.0.0.0"
 #      sh -c "alembic revision --autogenerate -m "first control" &&
 #             alembic upgrade heads"
     ports:

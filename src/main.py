@@ -1,25 +1,17 @@
-from time import sleep, time
-from fastapi_users import FastAPIUsers
-
-from fastapi import FastAPI, Request, status, Depends
+from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import ValidationError
 from fastapi.responses import JSONResponse
 
-from auth.auth import auth_backend
-from auth.database import User
-from auth.manager import get_user_manager
-from auth.schemas import UserRead, UserCreate
+from src.auth.base_config import auth_backend, fastapi_users
 
-from api.services import *
+from src.auth.schemas import UserRead, UserCreate
 
+from src.api.services import *
+
+from src.api.routers import router_orders
 
 app = FastAPI(title='FASTApi Order Book')
-
-fastapi_users = FastAPIUsers[User, int](
-    get_user_manager,
-    [auth_backend],
-)
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -33,8 +25,9 @@ app.include_router(
     tags=["auth"],
 )
 
-current_user = fastapi_users.current_user()
+app.include_router(router_orders)
 
+# logic
 N_TIMES = 5
 DURATION = 2
 
