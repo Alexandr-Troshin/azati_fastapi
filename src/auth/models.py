@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List, Dict
 
 from sqlalchemy import MetaData, Table, Column, Integer, String, TIMESTAMP, Boolean
 from fastapi_users.db import SQLAlchemyBaseUserTable
@@ -19,6 +20,7 @@ user = Table(
     Column("is_active", Boolean, default=True, nullable=False),
     Column("is_superuser", Boolean, default=False, nullable=False),
     Column("is_verified", Boolean, default=False, nullable=False),
+#    Column("balance", Dict, nullable=False)
     Column("balance", postgresql.JSONB(),  nullable=False)
 #    Column("balance", String,  nullable=False), #default={'money': 0}MutableDict.as_mutable(JSON)
 )
@@ -32,5 +34,6 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_active: bool = Column(Boolean, default=True, nullable=False)
     is_superuser: bool = Column(Boolean, default=False, nullable=False)
     is_verified: bool = Column(Boolean, default=False, nullable=False)
+#    balance = Column(Dict, nullable=False) #MutableDict.as_mutable(JSON)
     balance = Column(postgresql.JSONB(), nullable=False) #MutableDict.as_mutable(JSON)
 #    balance = Column(String, nullable=False)  # MutableDict.as_mutable(JSON)

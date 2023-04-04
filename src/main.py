@@ -11,6 +11,8 @@ from src.api.services import *
 
 from src.api.routers import router_orders
 
+import uvicorn
+
 app = FastAPI(title='FASTApi Order Book')
 
 app.include_router(
@@ -57,6 +59,8 @@ async def validation_exception_handler(request: Request, exc: ValidationError):
     )
 
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 
 
